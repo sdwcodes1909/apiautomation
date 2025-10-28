@@ -1,0 +1,12 @@
+name: Scheduled CI
+
+on:
+  schedule:
+    - cron: "14 11 * * *"   # Runs every day at 00:00 UTC
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print message
+        run: echo "Running scheduled job at $(date)"
