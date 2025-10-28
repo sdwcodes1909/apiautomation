@@ -2,3 +2,5 @@ boto3
 flask
 ansible
 python-terraform
+pytest
+requests
