@@ -7,4 +7,6 @@ jobs:
 
     steps:
       - name: my-rule
+        run: |
+          echo "Print my rule"
 
