@@ -1,25 +1,25 @@
-name: CI/CD Pipeline
-
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
-jobs:
-
-  Sudhanshu:
-
+  deploy:
+    needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
 
     steps:
-      # Step 1: Checkout code again for deployment
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Step 2: Deploy to server or cloud
-      - name: Deploy application
+      - name: Build Docker image
+        run: docker build -t myapp:${{ github.sha }} .
+
+      - name: Login to AWS ECR
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Push image to ECR
         run: |
-          echo "Deploying application..."
-          # Example: scp files to server or run docker-compose up
+          docker tag myapp:${{ github.sha }} <aws-account-id>.dkr.ecr.<region>.amazonaws.com/myapp:${{ github.sha }}
+          docker push <aws-account-id>.dkr.ecr.<region>.amazonaws.com/myapp:${{ github.sha }}
+
+      - name: Deploy to ECS
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ecs-task-def.json
+          service: my-ecs-service
+          cluster: my-ecs-cluster
