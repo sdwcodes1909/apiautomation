@@ -5,3 +5,6 @@ jobs:
   build:
     runs-on: ubuntu-latest   # Linux VM
 
+    steps:
+      - name: my-rule
+
