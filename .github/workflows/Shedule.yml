@@ -2,7 +2,7 @@ name: Scheduled CI
 
 on:
   schedule:
-    - cron: "14 11 * * *"   # Runs every day at 00:00 UTC
+    - cron: "11 49 * * *"   # Runs every day at 00:00 UTC
 
 jobs:
   build:
