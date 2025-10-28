@@ -13,13 +13,9 @@ jobs:
     steps:
       # Step 1: Checkout code
       - name: Checkout repository
-        uses: actions/checkout@v4
+        run: |
+          echo "Hello user"
 
-      # Step 2: Setup Python
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
 
       # Step 3: Install dependencies
 
